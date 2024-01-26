@@ -7,7 +7,7 @@
 
 variables:
   # The full path to the folder containing the project.json file for this pipeline
-  projectPath: https://github.com/Chandramouli345/123_RPALoadQueue
+  projectPath: project.json
   # The name of the folder to deploy the package to.
   folderName: 123_RPA_Challenge_website
   # Either AutoVersion to generate a build number or CurrentVersion to match the project.json version.
