@@ -36,10 +36,10 @@ trigger:
 # This points to the repository containing the templates. Update this to point to your template repository.
 resources:
   repositories:
-    - repository: 123_RPALoadQueue
+    - repository: 123_RPAProcessCase
       type: github  # use 'git' for a repo hosted in Azure DevOps
       endpoint: Chandramouli345
-      name: Chandramouli345/123_RPALoadQueue
+      name: Chandramouli345/23_RPAProcessCase
 
 # Use the specified template. 
 extends:
