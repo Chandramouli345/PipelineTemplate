@@ -16,7 +16,7 @@ variables:
   tenant: Mouli
   # The environments to update the package version to the deployed version. 
   # Not required for modern folders or if you do not want to update the package version.
-  environments: 'DEV'
+  environments: ''
 
 # Update this trigger to specify when the pipeline should run.
 # Variables cannot be used here.
