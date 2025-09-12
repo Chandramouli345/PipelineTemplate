@@ -39,7 +39,7 @@ stages:
       displayName: Log parameters
     - task: UiPathInstallPlatform-preview@5  # This installs required exes. Not necessary if using a dedicated build machine.
 
-    - task: UiPathPack@4
+    - task: UiPathPack@5
       inputs:
         versionType: 'CurrentVersion'
         projectJsonPath: '$(Build.SourcesDirectory)\${{ parameters.projectPath }}'
@@ -63,8 +63,8 @@ stages:
     steps:
     - download: current
       artifact: drop
-    - task: UiPathInstallPlatform-preview@4  # This installs required exes. Not necessary if using a dedicated build machine.
-    - task: UiPathDeploy@4
+    - task: UiPathInstallPlatform-preview@5  # This installs required exes. Not necessary if using a dedicated build machine.
+    - task: UiPathDeploy@5
       inputs:
         orchestratorConnection: 'UipathToken'
         packagesPath: '$(Pipeline.Workspace)\drop'
@@ -89,8 +89,8 @@ stages:
           steps:
           - download: current
             artifact: drop
-          - task: UiPathInstallPlatform-preview@4  # This installs required exes. Not necessary if using a dedicated build machine.
-          - task: UiPathDeploy@4
+          - task: UiPathInstallPlatform-preview@5  # This installs required exes. Not necessary if using a dedicated build machine.
+          - task: UiPathDeploy@5
             inputs:
               orchestratorConnection: 'UipathToken'  # Update this to a service connection for your Prod Orchestrator.
               packagesPath: '$(Pipeline.Workspace)\drop'
