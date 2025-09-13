@@ -12,7 +12,7 @@ parameters:
   type: string
 # The name of the folder to deploy the package to.
 - name: 'folderName'
-  default: 'Default'
+  default: ''
   type: string
 # Either AutoVersion to generate a build number or CurrentVersion to match the project.json version.
 - name: 'versioningStrategy'
@@ -30,7 +30,7 @@ stages:
 - stage: Build
   jobs:
   - job: BuildJob
-    pool: Self
+    pool: Default
 
     workspace:
       clean: all
@@ -43,7 +43,7 @@ stages:
       inputs:
         versionType: 'CurrentVersion'
         projectJsonPath: '$(Build.SourcesDirectory)\${{ parameters.projectPath }}'
-        orchestratorConnection: 'UipathToken'
+        orchestratorConnection: 'Uipath'
         outputPath: '$(Build.ArtifactStagingDirectory)\Output'
     # Publish the nuget package for later stages.
     - publish: $(Build.ArtifactStagingDirectory)\Output
@@ -56,7 +56,7 @@ stages:
   condition: and(succeeded('Build'), startsWith(variables['Build.SourceBranchName'], 'main'))  # Only run if the packaging succeeded and we are on a release* branch.
   jobs:
   - job: DeployToTestJob
-    pool: Self
+    pool: Default
 
     workspace:
       clean: all
@@ -66,7 +66,7 @@ stages:
     - task: UiPathInstallPlatform-preview@5  # This installs required exes. Not necessary if using a dedicated build machine.
     - task: UiPathDeploy@5
       inputs:
-        orchestratorConnection: 'UipathToken'
+        orchestratorConnection: 'Uipath'
         packagesPath: '$(Pipeline.Workspace)\drop'
         folderName: '${{ parameters.folderName }}'
         environments: '${{ parameters.environments }}'
@@ -92,7 +92,7 @@ stages:
           - task: UiPathInstallPlatform-preview@5  # This installs required exes. Not necessary if using a dedicated build machine.
           - task: UiPathDeploy@5
             inputs:
-              orchestratorConnection: 'UipathToken'  # Update this to a service connection for your Prod Orchestrator.
+              orchestratorConnection: 'Uipath'  # Update this to a service connection for your Prod Orchestrator.
               packagesPath: '$(Pipeline.Workspace)\drop'
               folderName: ${{ parameters.folderName }}
               environments: ${{ parameters.environments }}
